@@ -50,4 +50,14 @@ public class ClienteService {
 	
 	// Integrar metodo Actualizar
 	
+	public Cliente actualizarCliente(Long id, ClienteDto cliente) {
+		Cliente clienteEntity = clienteRepository.findById(id)
+				.orElseThrow(()-> new RuntimeException("Cliente no encontrado"));
+		clienteEntity.setNombre(cliente.getNombre());
+		clienteEntity.setApellido(cliente.getApellido());
+		clienteEntity.setEmail(cliente.getEmail());
+		
+		return clienteRepository.save(clienteEntity);
+	}
+	
 }
