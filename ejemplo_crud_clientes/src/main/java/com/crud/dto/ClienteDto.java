@@ -15,6 +15,15 @@ public class ClienteDto implements Serializable {
 	private String email;
 	private Date createAt;
 	
+	private TipoClienteDto tipoCliente;
+	
+	
+	public TipoClienteDto getTipoCliente() {
+		return tipoCliente;
+	}
+	public void setTipoCliente(TipoClienteDto tipoCliente) {
+		this.tipoCliente = tipoCliente;
+	}
 	
 	public String getNombre() {
 		return nombre;

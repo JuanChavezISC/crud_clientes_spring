@@ -7,14 +7,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.crud.repository.IClienteRepository;
+import com.crud.repository.ITipoClienteRepository;
 import com.crud.dto.ClienteDto;
 import com.crud.entity.Cliente;
+import com.crud.entity.TipoCliente;
 
 @Service
 public class ClienteService {
 
 	@Autowired
 	private IClienteRepository clienteRepository;
+	
+	@Autowired
+	private ITipoClienteRepository tipoClienteRepository; // Inyeccion
 	
 	// Consulta de todos los clientes
 	@Transactional(readOnly = true)
@@ -38,8 +43,34 @@ public class ClienteService {
 		clienteEntity.setApellido(cliente.getApellido());
 		clienteEntity.setEmail(cliente.getEmail());
 		
+		
+		//Validar tipoCliente
+		if (cliente.getTipoCliente() != null) {
+			TipoCliente tipo = null;
+			
+			if (cliente.getTipoCliente().getId() != null) {
+				// Caso 1: Mandan ID
+				tipo = tipoClienteRepository.findById(cliente.getTipoCliente().getId())
+						.orElseThrow(()-> new RuntimeException("Tipo cliente no encontrado con id: "
+						+ cliente.getTipoCliente().getId()));
+			}
+			else if (cliente.getTipoCliente().getTipoCliente() != null) 
+			{
+				// Caso 2: Mandaron solo nombre
+				
+				tipo = tipoClienteRepository.findByTipoCliente(cliente.getTipoCliente().getTipoCliente())
+						.orElseGet(() -> {
+							TipoCliente nuevo = new TipoCliente();
+							nuevo.setTipoCliente(cliente.getTipoCliente().getTipoCliente());
+							return tipoClienteRepository.save(nuevo);
+							});
+			}
+			clienteEntity.setTipoCliente(tipo);
+		}
 		return clienteRepository.save(clienteEntity);
 	}
+		
+	
 	
 	// Eliminar cliente
 	
@@ -56,6 +87,31 @@ public class ClienteService {
 		clienteEntity.setNombre(cliente.getNombre());
 		clienteEntity.setApellido(cliente.getApellido());
 		clienteEntity.setEmail(cliente.getEmail());
+		
+		//Validar tipoCliente
+				if (cliente.getTipoCliente() != null) {
+					TipoCliente tipo = null;
+					
+					if (cliente.getTipoCliente().getId() != null) {
+						// Caso 1: Mandan ID
+						tipo = tipoClienteRepository.findById(cliente.getTipoCliente().getId())
+								.orElseThrow(()-> new RuntimeException
+										("Tipo cliente no encontrado con id: "
+												+ cliente.getTipoCliente().getId()));
+					}
+					else if (cliente.getTipoCliente().getTipoCliente() != null) 
+					{
+						// Caso 2: Mandaron solo nombre
+						
+						tipo = tipoClienteRepository.findByTipoCliente(cliente.getTipoCliente().getTipoCliente())
+								.orElseGet(() -> {
+									TipoCliente nuevo = new TipoCliente();
+									nuevo.setTipoCliente(cliente.getTipoCliente().getTipoCliente());
+									return tipoClienteRepository.save(nuevo);
+									});
+					}
+					clienteEntity.setTipoCliente(tipo);
+				}
 		
 		return clienteRepository.save(clienteEntity);
 	}
