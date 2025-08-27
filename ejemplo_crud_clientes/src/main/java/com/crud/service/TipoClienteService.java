@@ -33,7 +33,7 @@ public class TipoClienteService {
 	public TipoCliente createTipoCliente(TipoClienteDto tipoCliente) 
 	{
 		TipoCliente tipoClienteEntity = new TipoCliente();
-		tipoCliente.setTipoCliente(tipoCliente.getTipoCliente());
+		tipoClienteEntity.setTipoCliente(tipoCliente.getTipoCliente());
 		return tipoClienteRepository.save(tipoClienteEntity);
 	}
 	
