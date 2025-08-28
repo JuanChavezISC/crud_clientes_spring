@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.crud.repository.IClienteRepository;
-import com.crud.repository.ITipoClienteRepository;
 import com.crud.dto.ClienteDto;
 import com.crud.entity.Cliente;
 import com.crud.entity.TipoCliente;
+import com.crud.repository.IClienteRepository;
+import com.crud.repository.ITipoClienteRepository;
 
 @Service
-public class ClienteService {
+public class ClienteServiceImp implements IClienteService {
 
 	@Autowired
 	private IClienteRepository clienteRepository;
@@ -71,7 +71,6 @@ public class ClienteService {
 	}
 		
 	
-	
 	// Eliminar cliente
 	
 	public void delete(Long id) 
@@ -115,5 +114,5 @@ public class ClienteService {
 		
 		return clienteRepository.save(clienteEntity);
 	}
-	
+
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.crud.dto.ClienteDto;
 import com.crud.entity.Cliente;
-import com.crud.service.ClienteService;
+import com.crud.service.ClienteServiceImp;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +27,7 @@ public class ClienteRestController {
 
 	// Inyeccion de Servicio
 	@Autowired
-	private ClienteService clienteService;
+	private ClienteServiceImp clienteService;
 	
 	// Consultar clientes que tenga en mi tabla clientes
 	@GetMapping("/clientes")

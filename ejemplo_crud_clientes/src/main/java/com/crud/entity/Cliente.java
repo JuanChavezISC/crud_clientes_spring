@@ -23,6 +23,7 @@ public class Cliente {
 	private Long id;
 	private String nombre;
 	private String apellido;
+	@Column(unique = true)
 	private String email;
 	@Column(name = "fecha_creacion")
 	private Date createAt;
