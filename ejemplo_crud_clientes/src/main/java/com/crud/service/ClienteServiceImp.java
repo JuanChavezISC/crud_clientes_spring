@@ -24,6 +24,7 @@ public class ClienteServiceImp implements IClienteService {
 	// Consulta de todos los clientes
 	@Transactional(readOnly = true)
 	public List<Cliente> findAll(){
+		System.out.println("Lista de clientes");
 		return (List<Cliente>)clienteRepository.findAll();
 	}
 	
