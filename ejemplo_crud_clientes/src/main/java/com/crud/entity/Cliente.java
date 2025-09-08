@@ -20,7 +20,7 @@ public class Cliente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idCliente;
 	
 	private String nombre;
 	private String apellido;
@@ -33,6 +33,20 @@ public class Cliente {
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private TipoCliente tipoCliente;
 	
+	public Cliente() {
+		super();
+	}
+	
+	public Cliente(Long idCliente, String nombre, String apellido, String email, Date createAt,
+			TipoCliente tipoCliente) {
+		super();
+		this.idCliente = idCliente;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = email;
+		this.createAt = createAt;
+		this.tipoCliente = tipoCliente;
+	}
 	// Getters & Setters
 	
 	public TipoCliente getTipoCliente() {
@@ -43,10 +57,10 @@ public class Cliente {
 	}
 	
 	public Long getId() {
-		return id;
+		return idCliente;
 	}
 	public void setId(Long id) {
-		this.id = id;
+		this.idCliente = id;
 	}
 	public String getNombre() {
 		return nombre;

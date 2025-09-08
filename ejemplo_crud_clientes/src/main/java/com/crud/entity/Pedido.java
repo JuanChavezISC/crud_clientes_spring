@@ -20,7 +20,10 @@ public class Pedido {
 	
 	private Date fechaPedido;
 	private Double total;
-	
+	@ManyToOne
+	@JoinColumn(
+			name = "id_cliente",
+			referencedColumnName = "idCliente")
 	private Cliente cliente;
 
 	
