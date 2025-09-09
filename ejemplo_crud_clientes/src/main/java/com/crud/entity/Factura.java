@@ -11,7 +11,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "factura", schema = "public")
+@Table(name = "facturas", schema = "public")
 public class Factura {
 
 	

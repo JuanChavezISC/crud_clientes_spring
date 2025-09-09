@@ -10,16 +10,16 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "producto", schema = "public")
+@Table(name = "productos", schema = "public")
 public class Producto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idProducto;
 	private String nombre;
 	private Double precio;
 	
-	@ManyToMany(mappedBy = "productos")
+	@ManyToMany(mappedBy = "productoList")
 	private List<Pedido> pedido;
 
 	public Producto() {
@@ -28,18 +28,18 @@ public class Producto {
 	
 	public Producto(Long id, String nombre, Double precio, List<Pedido> pedido) {
 		super();
-		this.id = id;
+		this.idProducto = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.pedido = pedido;
 	}
 
 	public Long getId() {
-		return id;
+		return idProducto;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.idProducto = id;
 	}
 
 	public String getNombre() {

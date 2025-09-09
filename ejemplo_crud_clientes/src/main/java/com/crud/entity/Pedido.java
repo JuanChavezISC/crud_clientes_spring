@@ -1,12 +1,16 @@
 package com.crud.entity;
 
 import java.sql.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -26,18 +30,37 @@ public class Pedido {
 			referencedColumnName = "idCliente")
 	private Cliente cliente;
 
+	@ManyToMany(
+			cascade = CascadeType.ALL
+	)
+	@JoinTable(
+			name = "pedido_producto_map",
+			joinColumns = @JoinColumn(
+					name= "id_pedido",
+					referencedColumnName = "idPedido"
+							),
+			inverseJoinColumns = @JoinColumn(
+					name = "id_producto",
+					referencedColumnName = "idProducto"
+								)
+	)
+	private List<Producto> productoList;
+	
 	
 	public Pedido() {
 		super();
 	}
 
-	public Pedido(Long id, Date fechaPedido, Double total, Cliente cliente) {
+	public Pedido(Long id, Date fechaPedido, Double total, Cliente cliente, List<Producto> productoList) {
 		super();
 		this.idPedido = id;
 		this.fechaPedido = fechaPedido;
 		this.total = total;
 		this.cliente = cliente;
+		this.productoList = productoList;
 	}
+
+
 
 	public Long getId() {
 		return idPedido;
@@ -69,6 +92,14 @@ public class Pedido {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<Producto> getProductoList() {
+		return productoList;
+	}
+
+	public void setProductoList(List<Producto> productoList) {
+		this.productoList = productoList;
 	}
 	
 	

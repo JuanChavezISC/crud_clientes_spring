@@ -1,6 +1,7 @@
 package com.crud.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,6 +34,13 @@ public class Cliente {
 	@JoinColumn(name = "tipoCliente_id")
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private TipoCliente tipoCliente;
+	
+	@OneToMany
+	@JoinColumn(
+			name = "id_cliente",
+			referencedColumnName = "idCliente"
+			)
+	private List<Pedido> pedidoList;
 	
 	public Cliente() {
 		super();
